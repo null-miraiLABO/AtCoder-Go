@@ -11,44 +11,42 @@ func main() {
 	var sel string
 
 	fmt.Println(">ファイル一覧")
-	list("BeginnersSelection/")
+	list_view("BeginnersSelection/")
 
 	fmt.Println(">問題を選択して下さい。")
 	fmt.Scanf("%s", &sel)
-	selection(sel)
+	run(sel)
 
 }
 
-func list(path string) {
+func list_view(path string) {
 	cmd := exec.Command("ls", path)
 	var ls_result, err = cmd.Output()
 
 	var str string = string(ls_result)
 
 	slice := strings.Split(str, "\n")
-	//printじゃなくて変数に入れるよう改良したい
 	for _, str := range slice {
 		if str != "" {
 			str = strings.Replace(str, ".go", "", -1)
-			fmt.Println(strings.Replace(str, str[:1], strings.ToUpper(str[:1]), -1))
+			fmt.Println(str)
 		}
 	}
 	fmt.Println("\nerr : ", err)
 }
 
-func selection(sel string) {
+func run(sel string) {
+	fmt.Printf(">this is %s \n", sel)
+
 	switch sel {
-	case "PracticeA":
-		fmt.Println(">this is practiceA")
+	case "practiceA":
 		BeginnersSelection.PracticeA()
-	case "Pbc086a":
-		fmt.Println(">this is abc086a")
+	case "abc086a":
 		BeginnersSelection.Abc086a()
-	case "Abc081a":
-		fmt.Println(">this is abc081a")
+	case "abc081a":
 		BeginnersSelection.Abc081a()
-	case "Abc081b":
-		fmt.Println(">this is abc081b")
+	case "abc081b":
 		BeginnersSelection.Abc081b()
 	}
+
 }
