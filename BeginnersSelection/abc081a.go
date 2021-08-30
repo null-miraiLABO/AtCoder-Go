@@ -11,6 +11,7 @@ func Abc081a() {
 	fmt.Scanf("%s", &str)
 
 	arr := strings.Split(str, "")
+	fmt.Println(arr)
 
 	for i := 0; i < 3; i++ {
 		if arr[i] == "1" {
