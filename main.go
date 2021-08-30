@@ -3,11 +3,17 @@ package main
 import (
 	"atCoder/BeginnersSelection"
 	"fmt"
+	"os/exec"
 )
 
 func main() {
 	var sel string
-	fmt.Println("問題を選択して下さい。")
+	cmd := exec.Command("ls", "BeginnersSelection/")
+	var result, err = cmd.Output()
+
+	fmt.Printf("<ファイル一覧>\n%s\n", result)
+	fmt.Println("err : ", err)
+	fmt.Println("<問題を選択して下さい。>")
 	fmt.Scanf("%s", &sel)
 
 	switch sel {
