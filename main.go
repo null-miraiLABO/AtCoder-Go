@@ -47,6 +47,10 @@ func run(sel string) {
 		BeginnersSelection.Abc081a()
 	case "abc081b":
 		BeginnersSelection.Abc081b()
+	case "abc087b":
+		BeginnersSelection.Abc087b()
+	default:
+		fmt.Printf(">%s does not exist  \n", sel)
 	}
 
 }
