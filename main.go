@@ -7,15 +7,43 @@ import (
 	"strings"
 )
 
+var dir_path string = "BeginnersSelection/"
+
 func main() {
 	var sel string
+	var command, pkg_path string
 
 	fmt.Println(">ファイル一覧")
-	list_view("BeginnersSelection/")
+	list_view(dir_path)
 
 	fmt.Println(">問題を選択して下さい。")
+	fmt.Printf("name: ")
 	fmt.Scanf("%s", &sel)
-	run(sel)
+	if sel != "q" {
+		run(sel)
+	}
+
+	fmt.Printf("cmd: ")
+	fmt.Scan(&command, &pkg_path)
+	command_run(command, pkg_path)
+
+}
+
+func command_run(cmd, str string) {
+	switch cmd {
+	case "run":
+		fmt.Println("this is run")
+	case "cat":
+		cat := exec.Command("cat", dir_path+str+".go")
+		var cat_result, err = cat.Output()
+		fmt.Printf("\n%s\nerr : %s\n", cat_result, err)
+	case "list":
+		list_view(dir_path)
+	case "exit":
+		fmt.Println("this is exit")
+	default:
+		fmt.Printf("command not found: %s \n", cmd+str)
+	}
 
 }
 
@@ -51,6 +79,8 @@ func run(sel string) {
 		BeginnersSelection.Abc087b()
 	case "abc083b":
 		BeginnersSelection.Abc083b()
+	case "abc088b":
+		BeginnersSelection.Abc088b()
 	default:
 		fmt.Printf(">%s does not exist  \n", sel)
 	}
