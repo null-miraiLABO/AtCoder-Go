@@ -1,8 +1,8 @@
-# AtCoder-Go
+# AtCoder-Go -hakadoru-
 
 Go で書いたコードを保存しておくやつ
 
-## AtCoder が捗る！なんちゃって cli ツールを作る(途中)
+## AtCoder が捗る！なんちゃって cli ツールを作る
 
 ### 前書き
 
