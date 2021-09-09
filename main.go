@@ -16,12 +16,14 @@ var dir_path string = "BeginnersSelection/"
 var fl bool = true
 
 func main() {
-	fmt.Println("[hakadoru!!]")
-	fmt.Println("this is AtCoder code control tool with Go")
+	fmt.Println(" hakadoru へようこそ")
+	fmt.Println(" hakadoru はAtCoderコード管理ツールです。")
+	fmt.Println(" 試しに `man` コマンドでマニュアルを見てみましょう！ ")
+	fmt.Printf("\n\n")
 
 	// 動作部分。flがfalseで終了(100回の制限あり)
 	for i := 0; fl && i < 100; i++ {
-		fmt.Printf("hakadoru-command> ")
+		fmt.Printf("hakadoru-command > ")
 
 		var sc = bufio.NewScanner(os.Stdin)
 		sc.Scan()
@@ -36,6 +38,8 @@ func main() {
 func command_run(arr []string) {
 	cmd := arr[0]
 	switch cmd {
+	case "man":
+		manual()
 	case "run":
 		run(arr)
 	case "cat":
@@ -124,4 +128,27 @@ func run(arr []string) {
 	default:
 		fmt.Printf(">%s does not exist  \n", sel)
 	}
+}
+
+func manual() {
+	var result string
+
+	str, err := os.Open("manual.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer str.Close()
+
+	tmp_slice := make([]byte, 1024)
+	for {
+		n, err := str.Read(tmp_slice)
+		if n == 0 {
+			break
+		}
+		if err != nil {
+			break
+		}
+		result += string(tmp_slice[:n]) + "\n"
+	}
+	fmt.Println(result)
 }
