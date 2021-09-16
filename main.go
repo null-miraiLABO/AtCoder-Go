@@ -9,11 +9,10 @@ import (
 	"strings"
 )
 
-// パッケージディレクトリのパス
-var dir_path string = "BeginnersSelection/"
+var contestDirPath string = "BeginnersSelection/"
 
-// ループフラグ
-var fl bool = true
+// ループ終了フラグ
+var exitFlag bool = true
 
 func main() {
 	fmt.Println(" hakadoru へようこそ")
@@ -21,13 +20,14 @@ func main() {
 	fmt.Println(" 試しに `man` コマンドでマニュアルを見てみましょう！ ")
 	fmt.Printf("\n\n")
 
-	// 動作部分。flがfalseで終了(100回の制限あり)
-	for i := 0; fl && i < 100; i++ {
+	// コマンド入力動作部分。exitFlagが`exit`コマンドでfalseで終了(100回の制限あり)
+	for i := 0; exitFlag && i < 100; i++ {
 		fmt.Printf("hakadoru-command > ")
 
 		var sc = bufio.NewScanner(os.Stdin)
 		sc.Scan()
 		st := sc.Text()
+		// arr[1]にコマンド,arr[2]に問題名またはオプション,arr[3]に問題名または空
 		arr := strings.Split(st, " ")
 
 		command_run(arr)
@@ -45,22 +45,22 @@ func command_run(arr []string) {
 	case "cat":
 		cat(arr)
 	case "list":
-		list_view(dir_path)
+		list_view(contestDirPath)
 	case "exit":
-		fl = false
+		exitFlag = false
 	default:
 		fmt.Printf("command not found: %s \n", arr)
 	}
 }
 
-// `cat`コマンド動作部分
+// `cat`コマンド動作部分。指定した問題のコードをcatする。
 func cat(arr []string) {
 	var result string
 	// sedオプション時
 	if arr[1] == "-sed" {
-		cat := exec.Command("cat", dir_path+arr[2]+".go")
+		cat := exec.Command("cat", contestDirPath+arr[2]+".go")
 		var cat_result, err = cat.Output()
-		tmp := strings.Replace(dir_path, "/", "", -1)
+		tmp := strings.Replace(contestDirPath, "/", "", -1)
 		result = string(cat_result)
 		result = strings.Replace(result, tmp, "main", -1)
 		tmp = strings.Replace(arr[2], arr[2][:1], strings.ToUpper(arr[2][:1]), -1)
@@ -72,7 +72,7 @@ func cat(arr []string) {
 
 	} else {
 		// catオプション無い時
-		cat := exec.Command("cat", dir_path+arr[1]+".go")
+		cat := exec.Command("cat", contestDirPath+arr[1]+".go")
 		var cat_result, err = cat.Output()
 		result = string(cat_result)
 
@@ -104,7 +104,7 @@ func list_view(path string) {
 }
 
 // `run`コマンド動作部分
-// が増える度に追記する。
+// 問題が増える度にcaseを追記しなければならない。文字リテラルの中で関数実行出来ない為
 func run(arr []string) {
 	sel := arr[1]
 	fmt.Printf("running : %s\n", sel)
@@ -133,12 +133,14 @@ func run(arr []string) {
 func manual() {
 	var result string
 
+	// manual.txtをstrに入れる
 	str, err := os.Open("manual.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
 	defer str.Close()
 
+	// strに"\n"を入れ、整えたものをresurtに格納
 	tmp_slice := make([]byte, 1024)
 	for {
 		n, err := str.Read(tmp_slice)
