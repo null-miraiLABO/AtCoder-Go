@@ -8,7 +8,7 @@ Go で書いたコードを保存しておくやつ
 
 問題別パッケージを管理するツールを作りました。
 
-リポジトリ:[https://github.com/null-miraiLABO/AtCoder-Go](https://github.com/null-miraiLABO/AtCoder-Go)
+[実行例:Youtubeリンク](https://www.youtube.com/watch?v=AfbT2hg7_p0)
 
 ### 仕様
 
