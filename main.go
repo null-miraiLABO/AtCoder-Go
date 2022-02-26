@@ -2,6 +2,7 @@ package main
 
 import (
 	"atCoder/BeginnersSelection"
+	"atCoder/practice"
 	"bufio"
 	"fmt"
 	"os"
@@ -125,6 +126,14 @@ func run(arr []string) {
 		BeginnersSelection.Abc083b()
 	case "abc088b":
 		BeginnersSelection.Abc088b()
+	case "abc085b":
+		BeginnersSelection.Abc085b()
+	case "abc085c":
+		BeginnersSelection.Abc085c()
+	case "abc049c":
+		BeginnersSelection.Abc049c()
+	case "anotoverflow":
+		practice.Anotoverflow()
 	default:
 		fmt.Printf(">%s does not exist  \n", sel)
 	}
